@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.ineuron.model.Customer;
 import in.ineuron.service.ICustomerService;
-import jakarta.annotation.PostConstruct;
 
 
 @Controller
@@ -22,6 +22,7 @@ public class CustomerController {
 	@Autowired
 	private ICustomerService service;
 	
+	//Data Rendering:: Data is traveling from controller to View:
 	
 	@GetMapping(value = "/list")
 	public String listCustomers(Map<String, Object> map) {
@@ -44,6 +45,11 @@ public class CustomerController {
 		return "customer-form";
 	}
 	
+	 
+	//Data Binding: Data is coming from the view to the controller:
+	
+	//Save customer and insert customer both. Since we're using Data JPA, if id == null then insert else update.
+	
 	@PostMapping(value = "/saveCustomer")
 	public String saveCustomer(@ModelAttribute(value = "customer")Customer customer) {
 		System.out.println(customer);
@@ -54,4 +60,23 @@ public class CustomerController {
 		return "redirect:/customer/list";
 	}
 	
+	
+	@GetMapping(value = "/showFormUpdate")
+	public String showFormUpdate(@RequestParam(value = "customerId") Integer id, Map<String, Object> map) {
+		
+		Customer customer = service.getCustomerById(id);
+		map.put("customer", customer);
+		
+		return "customer-form";
+	}
+	
+	
+	@GetMapping(value = "/showFormDelete")
+	public String showFormDelete(@RequestParam(value = "customerId") Integer id) {
+		service.deleteCustomerById(id);
+		return "redirect:/customer/list";
+	}
+	
 }
+
+

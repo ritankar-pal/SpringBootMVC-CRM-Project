@@ -20,6 +20,10 @@
 	</div>
 	
 	<form:form method="post" action="saveCustomer" modelAttribute="customer">
+		
+		<!-- Passing the ID as a hidden field -->
+		<form:hidden path="id"/>
+	
 		<table align="center">
 			<tr>
 				<th>First Name</th>
@@ -49,7 +53,11 @@
 		</table>
 	</form:form>
 	
-	<a href="list" align="center">Back To Customer List Page</a>
+	<br/>
+	
+	<div align="center">
+		<a href="list" align="center">Back To Customer List Page</a>	
+	</div>
 	
 </body>
 

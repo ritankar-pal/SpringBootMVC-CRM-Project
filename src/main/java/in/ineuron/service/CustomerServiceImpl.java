@@ -1,5 +1,6 @@
 package in.ineuron.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,19 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public void saveCustomer(Customer customer) {
 		repo.save(customer);
+	}
+
+	
+	@Override
+	public Customer getCustomerById(Integer id) {
+		Optional<Customer> optional = repo.findById(id);
+		return optional.get();
+	}
+
+
+	@Override
+	public void deleteCustomerById(Integer id) {
+		repo.deleteById(id);
 	}
 
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+       
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,49 +16,53 @@
 			<h2 style="color: green;">CRM - Customer Relationship Manager</h2>
 		</div>
 	</div>
-
+	
 	<div id="container" align="center">
 		<div id="content">
-
+			
 			<!-- Button to Add Customer--> 
 			<input type="button" value="Add Customer" 
 				onclick="window.location.href='./showForm'; return false;" class="add-button" />
-			
-
+				
+			<br/>
+				
 			<table border="1">
 				<tr style="background-color: coral;">
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Email ID</th>
+					<th>Actions</th>
 				</tr>
-
-				<tr>
-					<td>${customers.get(0).firstName}</td>
-					<td>${customers.get(0).lastName}</td>
-					<td>${customers.get(0).email}</td>
-				</tr>
-
-				<tr>
-					<td>${customers.get(1).firstName}</td>
-					<td>${customers.get(1).lastName}</td>
-					<td>${customers.get(1).email}</td>
-				</tr>
-
-				<tr>
-					<td>${customers.get(2).firstName}</td>
-					<td>${customers.get(2).lastName}</td>
-					<td>${customers.get(2).email}</td>
-				</tr>
-
-				<tr>
-					<td>${customers.get(3).firstName}</td>
-					<td>${customers.get(3).lastName}</td>
-					<td>${customers.get(3).email}</td>
-				</tr>
-
+				
+				<c:forEach var="customer" items="${customers}">
+				
+					<!-- showFormUpdate?custoemrId=1 -->
+					<c:url value="showFormUpdate" var="update">
+						<c:param name="customerId" value="${customer.id}"/>
+					</c:url>
+					
+					<c:url value="showFormDelete" var="delete">
+						<c:param name="customerId" value="${customer.id}"/>
+					</c:url>
+			
+				
+					<tr>
+						<td>${customer.firstName}</td>
+						<td>${customer.lastName}</td>
+						<td>${customer.email}</td>
+						<td>
+							<a href="${update}">Update</a>
+							              |
+							<a href="${delete}" 
+								onclick="if(!confirm('Are You Sure To Delete the Person?')) return false;">
+									Delete</a>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
-
+			
 		</div>
 	</div>
+	
 </body>
 </html>
