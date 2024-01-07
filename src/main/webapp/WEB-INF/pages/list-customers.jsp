@@ -36,12 +36,12 @@
 				
 				<c:forEach var="customer" items="${customers}">
 				
-					<!-- showFormUpdate?custoemrId=1 -->
-					<c:url value="showFormUpdate" var="update">
+					<!-- showFormUpdate?customerId=1 -->
+					<c:url value="/customer/showFormUpdate" var="update">
 						<c:param name="customerId" value="${customer.id}"/>
 					</c:url>
 					
-					<c:url value="showFormDelete" var="delete">
+					<c:url value="/customer/showFormDelete" var="delete">
 						<c:param name="customerId" value="${customer.id}"/>
 					</c:url>
 			
